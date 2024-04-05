@@ -1,1 +1,2 @@
-export const BG_URL =  "https://drive.google.com/file/d/1hFKPSETzU0K0U9pgcpcvoVk0XCEJxQ8k/view";
+export const Upcoming_API =
+  "https://gg-backend-assignment.azurewebsites.net/api/Events?code=FOX643kbHEAkyPbdd8nwNLkekHcL4z0hzWBGCd64Ur7mAzFuRCHeyQ==&page=1&type=upcoming";
