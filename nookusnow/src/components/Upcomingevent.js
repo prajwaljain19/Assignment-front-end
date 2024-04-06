@@ -29,15 +29,34 @@ const Upcomingevent = () => {
     };
 
     const scrollhandle = () => {
-        
-    }
+        const { scrolltop, clientheight, scrollheight } = document.documentElement;
+        if(scrolltop + clientheight >= scrollheight - 20) {
+            fetchevenet();
+        }
+    };
+
+    useEffect(() => {
+        fetchevenet();
+
+        window.addEventListener('scroll', scrollhandle);
+        return () => {
+            window.removeEventListener('scroll', scrollhandle);
+        };
+    }, []);
 
   return (
     <div>
-      <h1 className='text-3xl'>upcoming event</h1>
+       <div>
+        {
+            events.map((event, index) => (
+                <Eventcard key={index} event={event} />
+            ))
+        }
+       </div>
+       {loading && <div className="text-center mt-4">Loading...</div>}
     </div>
   )
 }
 console.log(Upcoming_API);
 
-export default Upcomingevent
+export default Upcomingevent;
