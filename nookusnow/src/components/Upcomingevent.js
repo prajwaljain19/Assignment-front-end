@@ -16,7 +16,8 @@ const Upcomingevent = () => {
         setloading(true);
         const response = await axios.get(Upcoming_API);
         if(response.data && response.data.events) {
-            setevents(preEvents => [...preEvents, ...response.data.events]);
+            // setevents(preEvents => [...preEvents, ...response.data.events]);
+            setevents(response.data.events);
             pagesRef.current++;
         } else {
             console.log('Invalid response');
@@ -45,11 +46,11 @@ const Upcomingevent = () => {
     }, []);
 
   return (
-    <div>
-       <div>
+    <div className='container mx-auto my-8'>
+       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
         {
             events.map((event, index) => (
-                <Eventcard key={index} event={event} />
+            <Eventcard key={index} event={event} />
             ))
         }
        </div>
