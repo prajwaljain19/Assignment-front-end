@@ -1,46 +1,45 @@
-import React from "react";
-import { useState,useEffect } from "react";
-import { Upcoming_API } from "../utils/constants";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import image from './images/first.png';
+import { Recommended_API } from "../utils/constants";
+import img from "./images/first.png";
 
 const Recommendedshow = () => {
-
-  const [events, setevents] = useState([]);
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    console.log(Upcoming_API);
-    const fetchrecommendedshow = async () => {
+    const fetchRecommendedShow = async () => {
       try {
-      const response = await axios.get(Upcoming_API);
-      if(response.data &&  response.data.events) {
-        setevents(response.data.events);
-      } else {
-        console.log('invalid response');
+        const response = await axios.get(Recommended_API);
+        if (response.data && response.data.events) {
+          setEvents(response.data.events);
+        } else {
+          console.log('Invalid response');
+        }
+      } catch (err) {
+        console.log(err);
       }
-      
-       } catch (err) {
-      console.log(err);
-    }
-  };
+    };
 
-  fetchrecommendedshow();
+    fetchRecommendedShow();
   }, []);
+  // console.log(Recommended_API);
 
   return (
-    <div className="relative top-[-2rem] flex space-x-2">
-    {
-      events.map((event, index) => (
-        <div key={index} >
-          <h3>{event.entName}</h3>
-          <img src={image} alt="img"  style={{ width: '800px', height: '200px' }} />
-          <p>city: {event.cityName}</p>
-          <p> date: {new Date(event.date).toLocaleDateString()}</p>
-          <p>{event.distanceKm}</p>
-        </div>
-    ))}
+    <div className="overflow-x-auto">
+      <div className="flex space-x-2">
+        {events.map((event, index) => (
+          <div key={index}>
+            <h3>{event.entName}</h3>
+            <img src={img} alt="Image" style={{ width: '700px', height: '200px' }} />
+            <p>City: {event.cityName}</p>
+            <p>{event.weather}</p>
+            <p>Date: {event.date}</p>
+            <p>Distance: {event.distanceKm}</p>
+          </div>
+        ))}
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default Recommendedshow;
